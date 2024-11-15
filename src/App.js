@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import AboutUs from "./components/AboutUs";
+import MembersPage from "./components/MembersPage";
+import FoundingMembers from "./components/FoundingMembers";
 
 function App() {
   const action = useNavigationType();
@@ -32,6 +34,14 @@ function App() {
         title = "About Us";
         metaDescription = "About Us Description";
         break;
+      case "/members":
+        title = "Members";
+        metaDescription = "Members Description";
+        break;
+      case "/founding-members":
+        title = "Founding Members";
+        metaDescription = "Founding Members Description";
+        break;
     }
 
     if (title) {
@@ -52,6 +62,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Homepage />} />
       <Route path="/about" element={<AboutUs />} />
+      <Route path="/members" element={<MembersPage />} />
+      <Route path="/founding-members" element={<FoundingMembers />} />
     </Routes>
   );
 }
