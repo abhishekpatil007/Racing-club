@@ -10,6 +10,11 @@ import AboutUs from "./components/AboutUs";
 import MembersPage from "./components/MembersPage";
 import FoundingMembers from "./components/FoundingMembers";
 import AdminPage from "./components/AdminPage";
+import AdminMembers from "./components/AdminMembers";
+import AdminEvents from "./components/AdminEvents";
+import AdminAddEvents from "./components/AdminAddEvents";
+
+
 
 function App() {
   const action = useNavigationType();
@@ -43,6 +48,18 @@ function App() {
         title = "Founding Members";
         metaDescription = "Founding Members Description";
         break;
+      case "/admin":
+        title = "Admin Page";
+        metaDescription = "Admin Page Description";
+        break;
+      case "/admin-members":
+        title = "Admin Members";
+        metaDescription = "Admin Members Description";
+        break;
+      case "/admin-events":
+        title = "Admin Events";
+        metaDescription = "Admin Events Description";
+        break;
     }
 
     if (title) {
@@ -66,6 +83,9 @@ function App() {
       <Route path="/members" element={<MembersPage />} />
       <Route path="/founding-members" element={<FoundingMembers />} />
       <Route path="/admin" element={<AdminPage />} />
+      <Route path="/admin-members" element={<AdminMembers />} />
+      <Route path="/admin-events" element={<AdminEvents />} />
+      <Route path="/admin-add-events" element={<AdminAddEvents />} />
     </Routes>
   );
 }
