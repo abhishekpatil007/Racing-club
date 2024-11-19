@@ -9,6 +9,7 @@ import Homepage from "./pages/Homepage";
 import AboutUs from "./components/AboutUs";
 import MembersPage from "./components/MembersPage";
 import FoundingMembers from "./components/FoundingMembers";
+import AdminPage from "./components/AdminPage";
 
 function App() {
   const action = useNavigationType();
@@ -64,6 +65,7 @@ function App() {
       <Route path="/about" element={<AboutUs />} />
       <Route path="/members" element={<MembersPage />} />
       <Route path="/founding-members" element={<FoundingMembers />} />
+      <Route path="/admin" element={<AdminPage />} />
     </Routes>
   );
 }
