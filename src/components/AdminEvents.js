@@ -13,7 +13,8 @@ const AdminEvents = () => {
         />
       </header>
       <footer className="w-[1619px] flex flex-row items-start justify-start py-0 pl-0 pr-5 box-border gap-20 max-w-full text-left text-mini text-white font-roboto mq925:pl-5 mq925:box-border mq450:gap-5 mq700:gap-10">
-        <div className="w-[242px] shadow-[0px_4px_14px_rgba(0,_0,_0,_0.07)] bg-black flex flex-col items-start justify-start pt-[52px] px-0 pb-[720px] box-border gap-5 mq925:hidden mq700:pt-[22px] mq700:pb-[304px] mq700:box-border mq950:pt-[34px] mq950:pb-[468px] mq950:box-border">
+        <div className="w-[242px] shadow-[0px_4px_14px_rgba(0,_0,_0,_0.07)] bg-black flex flex-col items-start justify-start pt-[52px] px-0 pb-[720px] box-bor
+        der gap-5 mq925:hidden mq700:pt-[22px] mq700:pb-[304px] mq700:box-border mq950:pt-[34px] mq950:pb-[468px] mq950:box-border">
           {/* Side Navbar Content */}
           <div className="flex flex-row items-start justify-start py-0 px-[29px]">
             <div className="flex flex-row items-end justify-start gap-5">
@@ -80,9 +81,9 @@ const AdminEvents = () => {
             <div className="flex justify-between items-center w-full">
               <div className="relative capitalize text-black font-medium whitespace-pre-wrap">{`Events     >     New Event`}</div>
               <button className="cursor-pointer [border:none] py-[9.5px] px-[37px] bg-red-500 rounded-md flex flex-row items-start justify-start hover:bg-red-700">
-                <a className="[text-decoration:none] relative text-mid font-medium font-roboto text-white text-left">
+                <Link to="/admin-add-events" className="[text-decoration:none] relative text-mid font-medium font-roboto text-white text-left">
                   + Add New Event
-                </a>
+                </Link>
               </button>
             </div>
             <div className="self-stretch h-[22px] relative text-8xl tracking-[0.01em] leading-[60px] font-medium text-black flex items-center shrink-0 mq450:text-3xl mq450:leading-[48px]">{` Events `}</div>
