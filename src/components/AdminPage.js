@@ -1,12 +1,15 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AdminPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = () => {
     if (email === 'Admin' && password === '123456') {
-      alert('Login successful!');
+   
+      navigate('/admin-events');
     } else {
       alert('Invalid username or password');
     }

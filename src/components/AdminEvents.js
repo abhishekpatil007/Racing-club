@@ -67,7 +67,7 @@ const AdminEvents = () => {
                     src="/clipboard2.svg"
                   />
                 </div>
-                <Link to="/gallery" className="[text-decoration:none] relative capitalize font-medium text-[inherit] z-[1]">
+                <Link to="/admin-gallery" className="[text-decoration:none] relative capitalize font-medium text-[inherit] z-[1]">
                   Gallery
                 </Link>
               </div>

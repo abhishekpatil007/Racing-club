@@ -13,6 +13,8 @@ import AdminPage from "./components/AdminPage";
 import AdminMembers from "./components/AdminMembers";
 import AdminEvents from "./components/AdminEvents";
 import AdminAddEvents from "./components/AdminAddEvents";
+import AdminGallery from "./components/AdminGallery";
+import Gallery from "./components/Gallery";
 
 
 
@@ -86,6 +88,8 @@ function App() {
       <Route path="/admin-members" element={<AdminMembers />} />
       <Route path="/admin-events" element={<AdminEvents />} />
       <Route path="/admin-add-events" element={<AdminAddEvents />} />
+      <Route path="/admin-gallery" element={<AdminGallery />} />
+      <Route path="/gallery" element={<Gallery />} />
     </Routes>
   );
 }
