@@ -15,7 +15,7 @@ import AdminEvents from "./components/AdminEvents";
 import AdminAddEvents from "./components/AdminAddEvents";
 import AdminGallery from "./components/AdminGallery";
 import Gallery from "./components/Gallery";
-
+import Events from "./components/Events";
 
 
 function App() {
@@ -90,7 +90,9 @@ function App() {
       <Route path="/admin-add-events" element={<AdminAddEvents />} />
       <Route path="/admin-gallery" element={<AdminGallery />} />
       <Route path="/gallery" element={<Gallery />} />
+      <Route path="/events" element={<Events />} />
     </Routes>
   );
 }
 export default App;
+
