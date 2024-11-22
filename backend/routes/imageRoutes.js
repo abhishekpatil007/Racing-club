@@ -5,6 +5,8 @@ const router = express.Router();
 const upload = multer({ dest: 'uploads/' }); // Directory to store uploaded images
 const cors = require('cors');
 
+const app = express();
+
 app.use(cors({
   origin: '*', // Allow all origins for testing
 }));

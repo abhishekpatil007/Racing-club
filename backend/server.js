@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
-const adminRoutes = require('./routes/adminRoutes');
+const adminRoutes = require('./routes/events');
 const imageRoutes = require('./routes/imageRoutes');
-const multer = require('multer');   
+const eventsRouter = require('./routes/events');
+const multer = require('multer');
 const path = require('path');
 
 dotenv.config();
@@ -16,7 +17,7 @@ const PORT = process.env.PORT || 5001;
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:3000', // Allow requests from your frontend
+  origin: 'http://localhost:3000', // Ensure this matches your frontend URL
 }));
 app.use(express.json());
 app.use('/uploads', express.static('uploads')); // Serve uploaded files
@@ -24,6 +25,7 @@ app.use('/uploads', express.static('uploads')); // Serve uploaded files
 // Routes
 app.use('/api/admin', adminRoutes);
 app.use('/api/images', imageRoutes);
+app.use('/api/events', eventsRouter);
 
 // Set up multer for file uploads
 const storage = multer.diskStorage({

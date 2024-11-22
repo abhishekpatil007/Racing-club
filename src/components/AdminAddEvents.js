@@ -1,7 +1,47 @@
-import { useCallback } from "react"; 
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 const AdminAddEvents = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    organizer: '',
+    contact: '',
+    venue: '',
+    date: '',
+    status: '',
+    category: '',
+    types: ''
+  });
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('Form submitted');
+    console.log('Form data:', formData);
+
+    try {
+      const response = await fetch('http://localhost:5001/api/events/add-event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      console.log('Response status:', response.status);
+      if (response.ok) {
+        console.log('Event added successfully');
+        navigate('/admin-events');
+      } else {
+        console.error('Failed to add event:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error adding event:', error);
+    }
+  };
+
   return (
     <div className="w-full relative bg-linen-100 overflow-hidden flex flex-col items-start justify-start leading-[normal] tracking-[normal]">
       <header className="self-stretch bg-darkorange overflow-hidden flex flex-row items-start justify-start py-[25px] px-10 sticky top-[0] z-[99] text-left text-499xl font-roboto">
@@ -23,11 +63,11 @@ const AdminAddEvents = () => {
                 alt=""
                 src="/squares-four.svg"
               />
-             <Link to="" className="[text-decoration:none] relative capitalize font-medium text-[inherit] inline-block min-w-[75px] z-[1]">
+              <Link to="/" className="[text-decoration:none] relative capitalize font-medium text-[inherit] inline-block min-w-[75px] z-[1]">
                 Homepage
               </Link>
             </div>
-          </div> 
+          </div>
           <div className="self-stretch bg-gainsboro-200 flex flex-row items-end justify-start py-[11px] px-[29px] gap-5 z-[1]">
             <img
               className="h-10 w-[242px] relative hidden"
@@ -83,15 +123,15 @@ const AdminAddEvents = () => {
               </div>
             </div>
             <div className="flex gap-4 items-center">
-              <button className="cursor-pointer [border:none] py-[9.5px] px-[29px] bg-white rounded-md flex flex-row items-start justify-start hover:bg-gainsboro-100">
+              <Link to="/admin-events" className="cursor-pointer [border:none] py-[9.5px] px-[29px] bg-white rounded-md flex flex-row items-start justify-start hover:bg-gainsboro-100">
                 <span className="[text-decoration:none] relative text-mid font-medium font-roboto text-red-500 text-left inline-block min-w-[54px]">Cancel</span>
-              </button>
-              <button className="cursor-pointer [border:none] py-[9.5px] px-[37px] bg-red-500 rounded-md flex flex-row items-start justify-start hover:bg-red-700">
-                <span className="[text-decoration:none] relative text-mid font-medium font-roboto text-white text-left">Save</span>
+              </Link>
+              <button onClick={handleSubmit} className="cursor-pointer [border:none] py-[9.5px] px-[37px] bg-red-500 rounded-md flex flex-row items-start justify-start hover:bg-red-700 text-white">
+                Save
               </button>
             </div>
           </div>
-          <div className="self-stretch rounded-lg bg-white flex flex-col items-start justify-start pt-5 pl-[40px] pb-[95px] box-border gap-[20.5px] max-w-full text-lg text-darkslategray-700 mq700:pb-[29px] mq700:box-border mt-5 h-[800px]">
+          <form onSubmit={handleSubmit} className="self-stretch rounded-lg bg-white flex flex-col items-start justify-start pt-5 pl-[40px] pb-[95px] box-border gap-[20.5px] max-w-full text-lg text-darkslategray-700 mq700:pb-[29px] mq700:box-border mt-5 h-[800px]">
             <div className="flex flex-row items-start justify-between gap-4">
               <div className="flex flex-col items-start justify-start gap-4 w-full">
                 <div>
@@ -100,6 +140,9 @@ const AdminAddEvents = () => {
                     className="w-[550px] h-[35px] rounded-md flex flex-row items-start justify-start z-[1] text-gray-300 border border-[#B6B6B6] border-opacity-60 mt-2"
                     placeholder="Enter name"
                     type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
                   />
                 </div>
                 <div>
@@ -108,6 +151,9 @@ const AdminAddEvents = () => {
                     className="w-[550px] h-[35px] rounded-md flex flex-row items-start justify-start z-[1] text-gray-300 border border-[#B6B6B6] border-opacity-60 mt-2"
                     placeholder="Enter details"
                     type="text"
+                    name="organizer"
+                    value={formData.organizer}
+                    onChange={handleChange}
                   />
                 </div>
                 <div>
@@ -116,6 +162,9 @@ const AdminAddEvents = () => {
                     className="w-[550px] h-[35px] rounded-md flex flex-row items-start justify-start z-[1] text-gray-300 border border-[#B6B6B6] border-opacity-60 mt-2"
                     placeholder="Enter here"
                     type="text"
+                    name="contact"
+                    value={formData.contact}
+                    onChange={handleChange}
                   />
                 </div>
                 <div>
@@ -124,6 +173,9 @@ const AdminAddEvents = () => {
                     className="w-[550px] h-[35px] rounded-md flex flex-row items-start justify-start z-[1] text-gray-300 border border-[#B6B6B6] border-opacity-60 mt-2"
                     placeholder="Enter here"
                     type="text"
+                    name="venue"
+                    value={formData.venue}
+                    onChange={handleChange}
                   />
                 </div>
                 <div>
@@ -131,7 +183,10 @@ const AdminAddEvents = () => {
                   <input
                     className="w-[550px] h-[35px] rounded-md flex flex-row items-start justify-start z-[1] text-gray-300 border border-[#B6B6B6] border-opacity-60 mt-2"
                     placeholder="Enter here"
-                    type="text"
+                    type="date"
+                    name="date"
+                    value={formData.date}
+                    onChange={handleChange}
                   />
                 </div>
                 <div>
@@ -140,6 +195,9 @@ const AdminAddEvents = () => {
                     className="w-[550px] h-[35px] rounded-md flex flex-row items-start justify-start z-[1] text-gray-300 border border-[#B6B6B6] border-opacity-60 mt-2"
                     placeholder="Enter here"
                     type="text"
+                    name="status"
+                    value={formData.status}
+                    onChange={handleChange}
                   />
                 </div>
                 <div>
@@ -148,6 +206,9 @@ const AdminAddEvents = () => {
                     className="w-[550px] h-[35px] rounded-md flex flex-row items-start justify-start z-[1] text-gray-300 border border-[#B6B6B6] border-opacity-60 mt-2"
                     placeholder="Enter here"
                     type="text"
+                    name="category"
+                    value={formData.category}
+                    onChange={handleChange}
                   />
                 </div>
                 <div>
@@ -156,43 +217,14 @@ const AdminAddEvents = () => {
                     className="w-[550px] h-[35px] rounded-md flex flex-row items-start justify-start z-[1] text-gray-300 border border-[#B6B6B6] border-opacity-60 mt-2"
                     placeholder="Enter here"
                     type="text"
+                    name="types"
+                    value={formData.types}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
-              <div className="flex flex-row items-start justify-center py-0 ml-[350px] mt-[250px]">
-                <div className="flex flex-row items-start justify-start gap-[9px]">
-                  <div className="flex flex-col items-start justify-start pt-px px-0 pb-0">
-                    <label className="relative text-black font-medium text-sm whitespace-nowrap inline-block min-w-[101px] z-[1] cursor-pointer flex flex-col items-center">
-                      <img
-                        className="h-15 w-15 mb-4"
-                        loading="lazy"
-                        alt="Plus Icon"
-                        src="/Plus.svg"
-                      />
-                      <div className="flex items-center">
-                        Upload Image
-                        <img
-                          className="h-4 w-4 ml-1"
-                          loading="lazy"
-                          alt="Upload Icon"
-                          src="/upload.svg"
-                        />
-                      </div>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={(e) => {
-                          const file = e.target.files[0];
-                          console.log(file);
-                        }}
-                      />
-                    </label>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
+          </form>
         </section>
       </footer>
     </div>

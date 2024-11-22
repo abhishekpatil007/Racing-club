@@ -1,7 +1,33 @@
-import { useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const AdminEvents = () => {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch('http://localhost:5001/api/events');
+        console.log('Response:', response);
+        
+        // Check if the response is JSON
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          throw new TypeError("Received non-JSON response");
+        }
+        
+        // Convert response to text and then parse JSON
+        const textData = await response.text();
+        const data = JSON.parse(textData);
+        console.log('Fetched events:', data);
+        setEvents(data);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
+    };
+    fetchEvents();
+  }, []);
+
   return (
     <div className="w-full relative bg-linen-100 overflow-hidden flex flex-col items-start justify-start leading-[normal] tracking-[normal]">
       <header className="self-stretch bg-darkorange overflow-hidden flex flex-row items-start justify-start py-[25px] px-10 sticky top-[0] z-[99] text-left text-499xl font-roboto">
@@ -13,8 +39,7 @@ const AdminEvents = () => {
         />
       </header>
       <footer className="w-[1619px] flex flex-row items-start justify-start py-0 pl-0 pr-5 box-border gap-20 max-w-full text-left text-mini text-white font-roboto mq925:pl-5 mq925:box-border mq450:gap-5 mq700:gap-10">
-        <div className="w-[242px] shadow-[0px_4px_14px_rgba(0,_0,_0,_0.07)] bg-black flex flex-col items-start justify-start pt-[52px] px-0 pb-[720px] box-bor
-        der gap-5 mq925:hidden mq700:pt-[22px] mq700:pb-[304px] mq700:box-border mq950:pt-[34px] mq950:pb-[468px] mq950:box-border">
+        <div className="w-[242px] shadow-[0px_4px_14px_rgba(0,_0,_0,_0.07)] bg-black flex flex-col items-start justify-start pt-[52px] px-0 pb-[720px] box-border gap-5 mq925:hidden mq700:pt-[22px] mq700:pb-[304px] mq700:box-border mq950:pt-[34px] mq950:pb-[468px] mq950:box-border">
           {/* Side Navbar Content */}
           <div className="flex flex-row items-start justify-start py-0 px-[29px]">
             <div className="flex flex-row items-end justify-start gap-5">
@@ -24,11 +49,11 @@ const AdminEvents = () => {
                 alt=""
                 src="/squares-four.svg"
               />
-             <Link to="" className="[text-decoration:none] relative capitalize font-medium text-[inherit] inline-block min-w-[75px] z-[1]">
+              <Link to="/" className="[text-decoration:none] relative capitalize font-medium text-[inherit] inline-block min-w-[75px] z-[1]">
                 Homepage
               </Link>
             </div>
-          </div> 
+          </div>
           <div className="self-stretch bg-gainsboro-200 flex flex-row items-end justify-start py-[11px] px-[29px] gap-5 z-[1]">
             <img
               className="h-10 w-[242px] relative hidden"
@@ -88,28 +113,30 @@ const AdminEvents = () => {
             </div>
             <div className="self-stretch h-[22px] relative text-8xl tracking-[0.01em] leading-[60px] font-medium text-black flex items-center shrink-0 mq450:text-3xl mq450:leading-[48px]">{` Events `}</div>
             
-            {/* Card Implementation */}
-            <div className={`w-[382px] rounded-xl bg-white border-lightseagreen border-[2px] border-solid box-border max-w-full flex flex-col items-start justify-start pt-[17px] pb-[19px] pl-3.5 pr-2 gap-[21px] min-h-[141px] leading-[normal] tracking-[normal] text-left text-xl text-darkorange font-roboto`}>
-              <div className="self-stretch flex flex-row items-start justify-between py-0 pl-0 pr-1.5 gap-5">
-                <div className="w-60 flex flex-col items-start justify-start pt-px px-0 pb-0 box-border">
-                  <a className="[text-decoration:none] self-stretch h-[22px] relative tracking-[0.01em] leading-[60px] font-medium text-[inherit] flex items-center shrink-0">
-                    Event 1
-                  </a>
+            {/* Display Events */}
+            {events.map(event => (
+              <div key={event._id} className="w-[382px] rounded-xl bg-white border-lightseagreen border-[2px] border-solid box-border max-w-full flex flex-col items-start justify-start pt-[17px] pb-[19px] pl-3.5 pr-2 gap-[21px] min-h-[141px] leading-[normal] tracking-[normal] text-left text-xl text-darkorange font-roboto">
+                <div className="self-stretch flex flex-row items-start justify-between py-0 pl-0 pr-1.5 gap-5">
+                  <div className="w-60 flex flex-col items-start justify-start pt-px px-0 pb-0 box-border">
+                    <a className="[text-decoration:none] self-stretch h-[22px] relative tracking-[0.01em] leading-[60px] font-medium text-[inherit] flex items-center shrink-0">
+                      {event.name}
+                    </a>
+                  </div>
+                  <Link to={`/admin-edit-event/${event._id}`}>
+                    <img
+                      className="h-6 w-[23px] relative object-cover"
+                      loading="lazy"
+                      alt="Edit"
+                      src="/edit.svg"
+                    />
+                  </Link>
                 </div>
-                <img
-                  className="h-6 w-[23px] relative object-cover"
-                  loading="lazy"
-                  alt=""
-                  src="/edit.svg"
-                />
+                <div className="relative text-mid leading-[160%] text-black">
+                  {event.description}
+                </div>
               </div>
-              <div className="relative text-mid leading-[160%] text-black">
-                2024 Blueband Sports FMSCI Indian National Rally Championship (4W)
-              </div>
-            </div>
-            {/* End of Card Implementation */}
+            ))}
           </div>
-          {/* Blank Content Area */}
         </section>
       </footer>
     </div>

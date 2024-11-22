@@ -297,8 +297,8 @@ const FoundingMembers = () => {
                   <img
                     className="w-[743.5px] h-full absolute !m-[0] top-[0px] right-[-187.5px] bottom-[0px] max-h-full object-contain z-[1]"
                     loading="lazy"
-                    alt=""
-                    src="/vector-10.svg"
+                  //  alt=""
+                //    src="/vector-10.svg"
                   />
                   <div className="w-[437px] flex flex-col items-start justify-start py-0 pl-0 pr-5 box-border relative gap-[98px] max-w-full mq450:gap-[49px]">
                     <div className="self-stretch flex flex-row items-start justify-end text-37xl">
