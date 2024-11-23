@@ -33,7 +33,12 @@ const FrameComponent1 = ({ className = "" }) => {
               Meet The Members
             </h2>
           </div>
-          <div className="flex-[0.9842] flex flex-row items-start justify-between pt-[30px] pb-[277px] pl-[23px] pr-[38px] box-border bg-cover bg-no-repeat bg-[top] max-w-full gap-5 mq900:flex-wrap mq900:min-w-full mq450:pt-5 mq450:pb-[180px] mq450:box-border mq1625:flex-1">
+          <div className="flex-[0.9842] flex flex-row items-start justify-between pt-[30px] pb-[277px] pl-[23px] pr-[38px] box-border bg-cover bg-no-repeat bg-[top] max-w-full gap-5 mq900:flex-wrap mq900:min-w-full mq450:pt-5 mq450:pb-[180px] mq450:box-border mq1625:flex-1 relative">
+            <img
+              className="h-full w-full absolute !m-[0] top-[0px] right-[0px] bottom-[0px] left-[0px] max-w-full overflow-hidden max-h-full object-cover"
+              alt=""
+              src="/scimg.png"
+            />
             <img
               className="h-[415px] w-[745px] relative object-cover hidden max-w-full"
               alt=""
@@ -43,6 +48,7 @@ const FrameComponent1 = ({ className = "" }) => {
               Schedule
             </h2>
             <div className="rounded-8xs bg-linen-200 flex flex-col items-start justify-start pt-[12.8px] px-2.5 pb-[19px] gap-[12.3px] z-[1] text-sm text-dimgray-100">
+              
               <div className="w-[211px] h-[108px] relative rounded-8xs bg-linen-200 hidden" />
               <div className="flex flex-row items-start justify-start pt-0 px-0 pb-[6.6px]">
                 <div className="relative leading-[15px] inline-block min-w-[72px] z-[1]">

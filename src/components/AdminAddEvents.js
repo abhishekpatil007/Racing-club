@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from 'axios';
 
 const AdminAddEvents = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ const AdminAddEvents = () => {
     category: '',
     types: ''
   });
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const navigate = useNavigate();
 
@@ -19,23 +21,31 @@ const AdminAddEvents = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted');
-    console.log('Form data:', formData);
+    
+    const formDataWithImage = new FormData();
+    Object.keys(formData).forEach(key => {
+      formDataWithImage.append(key, formData[key]);
+    });
+    if (selectedFile) {
+      formDataWithImage.append("image", selectedFile);
+    }
 
     try {
-      const response = await fetch('http://localhost:5001/api/events/add-event', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+      const response = await axios.post('http://localhost:5001/api/events/add-event', formDataWithImage, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
-      console.log('Response status:', response.status);
-      if (response.ok) {
+      if (response.status === 200) {
         console.log('Event added successfully');
         navigate('/admin-events');
-      } else {
-        console.error('Failed to add event:', response.statusText);
       }
     } catch (error) {
       console.error('Error adding event:', error);
@@ -118,7 +128,12 @@ const AdminAddEvents = () => {
           <div className="self-stretch flex flex-row items-start justify-between gap-5 mq700:flex-wrap">
             <div className="w-60 flex flex-col items-start justify-start pt-2 px-0 pb-0 box-border">
               <div className="self-stretch flex flex-col items-start justify-start gap-[35px]">
-                <div className="relative capitalize text-black font-medium whitespace-pre-wrap">{`Events     >     New Event`}</div>
+                <div className="relative capitalize text-black font-medium whitespace-pre-wrap">
+                  <Link to="/admin-events" className=" text-black [text-decoration:none]">
+                    Events
+                  </Link>
+                  {` > New Event`}
+                </div>
                 <div className="self-stretch h-[22px] relative text-8xl tracking-[0.01em] leading-[60px] font-medium text-black flex items-center shrink-0 mq450:text-3xl mq450:leading-[48px]">{`Add New Event `}</div>
               </div>
             </div>
@@ -133,7 +148,7 @@ const AdminAddEvents = () => {
           </div>
           <form onSubmit={handleSubmit} className="self-stretch rounded-lg bg-white flex flex-col items-start justify-start pt-5 pl-[40px] pb-[95px] box-border gap-[20.5px] max-w-full text-lg text-darkslategray-700 mq700:pb-[29px] mq700:box-border mt-5 h-[800px]">
             <div className="flex flex-row items-start justify-between gap-4">
-              <div className="flex flex-col items-start justify-start gap-4 w-full">
+              <div className="flex flex-col items-start justify-start gap-4 w-1/2">
                 <div>
                   <span className="font-medium text-black mb-1">Event Name</span>
                   <input
@@ -222,6 +237,37 @@ const AdminAddEvents = () => {
                     onChange={handleChange}
                   />
                 </div>
+              </div>
+              
+              <div className="w-1/2 flex flex-col items-center justify-start pt-[100px] pr-[300px]">
+                <label className="relative text-black font-medium text-lg whitespace-nowrap inline-block min-w-[101px] z-[1] cursor-pointer flex flex-col items-center border-dotted border-2 border-gray-400 p-6 w-[300px] h-[150px]">
+                  <img
+                    className="h-20 w-20 mb-4"
+                    loading="lazy"
+                    alt="Plus Icon"
+                    src="/Plus.svg"
+                  />
+                  <div className="flex items-center text-lg">
+                    Upload Image
+                    <img
+                      className="h-6 w-6 ml-1"
+                      loading="lazy"
+                      alt="Upload Icon"
+                      src="/upload.svg"
+                    />
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleFileChange}
+                  />
+                </label>
+                {selectedFile && (
+                  <div className="mt-2 text-sm text-gray-600">
+                    Selected: {selectedFile.name}
+                  </div>
+                )}
               </div>
             </div>
           </form>

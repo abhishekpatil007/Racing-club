@@ -1,5 +1,6 @@
 import PrizeFans from "./PrizeFans";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const FrameComponent5 = ({ className = "" }) => {
   return (

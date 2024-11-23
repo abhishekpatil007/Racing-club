@@ -3,7 +3,7 @@ const router = express.Router();
 const Event = require('../models/Event');
 
 // Fetch all events
-router.get('/', async (req, res) => {
+router.get('/api/events', async (req, res) => {
     try {
       const events = await Event.find(); // Fetch events from the database
       res.json(events);

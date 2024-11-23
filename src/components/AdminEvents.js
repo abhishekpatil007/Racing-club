@@ -114,28 +114,31 @@ const AdminEvents = () => {
             <div className="self-stretch h-[22px] relative text-8xl tracking-[0.01em] leading-[60px] font-medium text-black flex items-center shrink-0 mq450:text-3xl mq450:leading-[48px]">{` Events `}</div>
             
             {/* Display Events */}
-            {events.map(event => (
-              <div key={event._id} className="w-[382px] rounded-xl bg-white border-lightseagreen border-[2px] border-solid box-border max-w-full flex flex-col items-start justify-start pt-[17px] pb-[19px] pl-3.5 pr-2 gap-[21px] min-h-[141px] leading-[normal] tracking-[normal] text-left text-xl text-darkorange font-roboto">
-                <div className="self-stretch flex flex-row items-start justify-between py-0 pl-0 pr-1.5 gap-5">
-                  <div className="w-60 flex flex-col items-start justify-start pt-px px-0 pb-0 box-border">
-                    <a className="[text-decoration:none] self-stretch h-[22px] relative tracking-[0.01em] leading-[60px] font-medium text-[inherit] flex items-center shrink-0">
-                      {event.name}
-                    </a>
+            <div className="grid grid-cols-3 gap-6 w-full">
+              {events.map((event, index) => (
+                <div key={event._id} className="rounded-xl bg-white border-lightseagreen border-[2px] border-solid p-4 flex flex-col gap-4">
+                  <div className="flex justify-between items-center">
+                    <span className="font-medium text-orange-500">{`Event ${index + 1}`}</span>
+                    <Link to={`/admin-add-events/${event._id}`} className="hover:opacity-75">
+                      <img
+                        className="h-6 w-6 object-cover"
+                        loading="lazy"
+                        alt="Edit"
+                        src="/edit.svg"
+                      />
+                    </Link>
                   </div>
-                  <Link to={`/admin-edit-event/${event._id}`}>
-                    <img
-                      className="h-6 w-[23px] relative object-cover"
-                      loading="lazy"
-                      alt="Edit"
-                      src="/edit.svg"
-                    />
-                  </Link>
+                  <div className="text-black">
+                    <p className="font-medium text-lg">{event.name}</p>
+                    {event.date && (
+                      <p className="text-sm text-gray-600 mt-2">
+                        {new Date(event.date).toLocaleDateString()}
+                      </p>
+                    )}
+                  </div>
                 </div>
-                <div className="relative text-mid leading-[160%] text-black">
-                  {event.description}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
       </footer>

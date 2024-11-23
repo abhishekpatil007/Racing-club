@@ -63,20 +63,19 @@ const MembersPage = () => {
           </div>
           <div className="rounded bg-silver flex flex-row items-end justify-start pt-[3px] pb-0.5 pl-[18px] pr-4 gap-2.5">
             <div className="h-[35px] w-[106px] relative rounded bg-silver hidden" />
-            <div className="relative leading-[29.9px] font-semibold z-[1]">
+            <div className="relative leading-[29.9px] font-semibold z-[1]"
+            onClick={() => navigate('/events')}
+            >
               Events
             </div>
             <div className="flex flex-col items-start justify-end pt-0 px-0 pb-3">
-              <img
-                className="w-2.5 h-[5px] relative z-[1]"
-                loading="lazy"
-                alt=""
-                src="/icon-1.svg"
-              />
+             
             </div>
           </div>
           <div className="flex flex-col items-start justify-start pt-[2.5px] px-0 pb-0">
-            <div className="relative leading-[29.9px] font-medium inline-block min-w-[55px]">
+            <div className="relative leading-[29.9px] font-medium inline-block min-w-[55px]"
+            onClick={() => navigate('/gallery')}
+            >
               Gallery
             </div>
           </div>
